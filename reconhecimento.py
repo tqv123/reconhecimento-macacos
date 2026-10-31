@@ -21,7 +21,6 @@ ARQUIVOS_IMAGENS = {
     "maos_levantadas": "macaco maos levantadas.jfif",
     "olhos_fechados": "macaco olhos fechados.jfif",
     "sorridente": "macaco sorridente.jfif",
-    "sinal_l": "fazer o sinal de l com a mao.jpg",
 }
 ARQUIVO_MODELO_ROSTO = "face_landmarker.task"
 ARQUIVO_MODELO_POSE = "pose_landmarker_lite.task"
@@ -97,27 +96,6 @@ def detectar_hangloose(resultados_maos):
     return False
 
 
-def detectar_sinal_l(resultados_maos):
-    """Detecta L com o polegar e o indicador estendidos."""
-    for pontos in resultados_maos.hand_landmarks:
-        polegar_estendido = (
-            distancia(pontos[0], pontos[4])
-            > distancia(pontos[0], pontos[2]) * 1.15
-        )
-        indicador_estendido = (
-            distancia(pontos[0], pontos[8])
-            > distancia(pontos[0], pontos[6]) * 1.15
-        )
-        demais_dedos_dobrados = all(
-            distancia(pontos[0], pontos[ponta])
-            < distancia(pontos[0], pontos[articulacao])
-            for ponta, articulacao in ((12, 10), (16, 14), (20, 18))
-        )
-        if polegar_estendido and indicador_estendido and demais_dedos_dobrados:
-            return True
-    return False
-
-
 def classificar_corpo(resultados_pose):
     """Detecta quando os dois braços estão levantados."""
     if resultados_pose.pose_landmarks:
@@ -185,8 +163,6 @@ def classificar_rosto(resultados_rosto):
 def classificar(resultados_rosto, resultados_pose, resultados_maos):
     if len(resultados_rosto.face_landmarks) >= 2:
         return "duas_pessoas"
-    if detectar_sinal_l(resultados_maos):
-        return "sinal_l"
     if detectar_hangloose(resultados_maos):
         return "dahora"
     return classificar_corpo(resultados_pose) or classificar_rosto(resultados_rosto)

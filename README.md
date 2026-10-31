@@ -4,7 +4,7 @@ Projeto em Python para detectar expressões faciais e gestos usando OpenCV e Med
 
 ## Funcionalidades
 
-- Detecção de expressões faciais como sorriso, olhos fechados, boca aberta, biquinho e descrença.
+- Detecção de expressões faciais como sorriso, olhos fechados, boca aberta, biquinho e zen.
 - Detecção de gestos com as mãos, incluindo o gesto de "hang loose".
 - Exibição em tempo real da emoção detectada ao lado do vídeo da câmera.
 

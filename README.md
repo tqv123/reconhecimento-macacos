@@ -78,5 +78,4 @@ py -3.14 -m pytest
 
 ## Observações
 
-- O arquivo `mario dedo do meio.png` não é usado em nenhuma parte do código e foi mantido fora da lógica do programa.
 - Os modelos do MediaPipe e as imagens usadas já estão incluídos na pasta do repositório.
